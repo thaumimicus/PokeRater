@@ -31,8 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EloRatingTools">
-      <HintPath>..\..\References\EloRatingTools.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\References\EloRatingTools.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\WinnerNotValidException.cs" />
+    <Compile Include="DualEloPlayer.cs" />
     <Compile Include="GamePlayer.cs" />
     <Compile Include="Pokemon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

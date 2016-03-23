@@ -75,5 +75,10 @@ namespace PokeRater
         {
             _gamesPlayed += 1;
         }
+
+        public override string ToString()
+        {
+            return dexNum + ": " + name;
+        }
     }
 }
