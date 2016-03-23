@@ -5,8 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PokeRaterUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="PokeRater" Height="350" Width="525">
+    <Window.DataContext>
+        <local:RaterViewModel />
+    </Window.DataContext>
     <Grid>
-        
+        <StackPanel>
+            <ListView x:Name="List" ItemsSource="{Binding CurrentSelection, Mode=OneWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Name: " VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding name}" FontWeight="Bold" VerticalAlignment="Center" />
+                            <TextBlock Text=", " VerticalAlignment="Center" />
+                            <TextBlock Text="Dex Number: " VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding dexNum}" FontWeight="Bold" VerticalAlignment="Center" />
+                            <TextBlock Text=", " VerticalAlignment="Center" />
+                            <TextBlock Text="Current Rating: " VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding rating}" FontWeight="Bold" VerticalAlignment="Center" />
+                            <Button Command="{Binding DataContext.ChoosePokemonCommand, ElementName=List}" CommandParameter="{Binding }" Content="Choose" Margin="5,5,0,5" VerticalAlignment="Center"></Button>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
     </Grid>
 </Window>
