@@ -26,6 +26,28 @@ namespace PokeRater.DatabaseObjects
         }
 
         /// <summary>
+        /// Get a Pokemon by its dex number.
+        /// </summary>
+        /// <param name="dexNum">Dex number.</param>
+        /// <returns>Pokemon.</returns>
+        public Pokemon GetPokemonBy(int dexNum)
+        {
+            Pokemon row = _ratingsList.AsEnumerable().Where(x => x.DexNum == dexNum).FirstOrDefault();
+            return row;
+        }
+
+        /// <summary>
+        /// Get a Pokemon by its English name.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Pokemon.</returns>
+        public Pokemon GetPokemonBy(string name)
+        {
+            Pokemon row = _ratingsList.AsEnumerable().Where(x => x.Name == name).FirstOrDefault();
+            return row;
+        }
+
+        /// <summary>
         /// Gets a random Pokemon from the database.
         /// </summary>
         /// <returns>A random Pokemon.</returns>
