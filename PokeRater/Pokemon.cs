@@ -9,7 +9,7 @@ namespace PokeRater
     {
         #region Members and Accessors
         private string _name;
-        public string name
+        public string Name
         {
             get
             {
@@ -18,7 +18,7 @@ namespace PokeRater
         }
 
         private int _dexNum;
-        public int dexNum
+        public int DexNum
         {
             get
             {
@@ -27,7 +27,7 @@ namespace PokeRater
         }
 
         private int _rating;
-        public int rating
+        public int Rating
         {
             get
             {
@@ -36,7 +36,7 @@ namespace PokeRater
         }
 
         private int _gamesPlayed;
-        public int gamesPlayed
+        public int GamesPlayed
         {
             get
             {
@@ -58,6 +58,11 @@ namespace PokeRater
             _gamesPlayed = 0;
         }
 
+        public void ChangeRating(int newRating)
+        {
+            _rating = newRating;
+        }
+
         /// <summary>
         /// Changes the rating of the Pokemon based on a game.
         /// </summary>
@@ -65,7 +70,7 @@ namespace PokeRater
         /// <param name="victoryType">Whether the Pokemon won.</param>
         public void ChangeRating(Pokemon opponent, EloCalculator.VictoryType victoryType)
         {
-            _rating = EloCalculator.CalculateNewElo(rating, opponent.rating, gamesPlayed, victoryType);
+            _rating = EloCalculator.CalculateNewElo(Rating, opponent.Rating, GamesPlayed, victoryType);
         }
 
         /// <summary>
@@ -78,7 +83,7 @@ namespace PokeRater
 
         public override string ToString()
         {
-            return dexNum + ": " + name;
+            return DexNum + ": " + Name;
         }
     }
 }

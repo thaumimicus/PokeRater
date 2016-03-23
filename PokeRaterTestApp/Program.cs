@@ -24,7 +24,7 @@ namespace PokeRaterTestApp
         {
             foreach (Pokemon p in pokemon)
             {
-                Console.WriteLine(string.Format("{0} : {1}", p.name, p.rating.ToString()));
+                Console.WriteLine(string.Format("{0} : {1}", p.Name, p.Rating.ToString()));
                 Console.ReadKey();
             }
         }
