@@ -1,4 +1,5 @@
 ﻿using EloRatingTools;
+using System.Data;
 
 namespace PokeRater
 {
@@ -9,7 +10,7 @@ namespace PokeRater
     {
         #region Members and Accessors
         private string _name;
-        public string name
+        public string Name
         {
             get
             {
@@ -18,7 +19,7 @@ namespace PokeRater
         }
 
         private int _dexNum;
-        public int dexNum
+        public int DexNum
         {
             get
             {
@@ -27,7 +28,7 @@ namespace PokeRater
         }
 
         private int _rating;
-        public int rating
+        public int Rating
         {
             get
             {
@@ -36,7 +37,7 @@ namespace PokeRater
         }
 
         private int _gamesPlayed;
-        public int gamesPlayed
+        public int GamesPlayed
         {
             get
             {
@@ -45,17 +46,18 @@ namespace PokeRater
         }
         #endregion
 
-        /// <summary>
-        /// Public constructor for Pokemon.
-        /// </summary>
-        /// <param name="name">Name of the Pokemon.</param>
-        /// <param name="dexNum">The Pokemon's national dex number.</param>
-        public Pokemon(string name, int dexNum)
+
+        public Pokemon(DataRow row)
         {
-            _name = name;
-            _dexNum = dexNum;
-            _rating = 2000;
-            _gamesPlayed = 0;
+            _name = (string)row["Name"];
+            _dexNum = (int)row["DexNum"];
+            _rating = (int)row["Rating"];
+            _gamesPlayed = (int)row["GamesPlayed"];
+        }
+
+        public void ChangeRating(int newRating)
+        {
+            _rating = newRating;
         }
 
         /// <summary>
@@ -65,7 +67,7 @@ namespace PokeRater
         /// <param name="victoryType">Whether the Pokemon won.</param>
         public void ChangeRating(Pokemon opponent, EloCalculator.VictoryType victoryType)
         {
-            _rating = EloCalculator.CalculateNewElo(rating, opponent.rating, gamesPlayed, victoryType);
+            _rating = EloCalculator.CalculateNewElo(Rating, opponent.Rating, GamesPlayed, victoryType);
         }
 
         /// <summary>
@@ -78,7 +80,7 @@ namespace PokeRater
 
         public override string ToString()
         {
-            return dexNum + ": " + name;
+            return DexNum + ": " + Name;
         }
     }
 }

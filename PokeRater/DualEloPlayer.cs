@@ -1,27 +1,16 @@
 ﻿using PokeRater.Exceptions;
 using EloRatingTools;
-using System.Collections.Generic;
-using System;
+using PokeRater.DatabaseObjects;
 
 namespace PokeRater
 {
     public class DualEloPlayer : IGamePlayer
     {
-        List<Pokemon> ratingsList; //DB
+        private PokemonDbo _pDbo;
 
         public DualEloPlayer()
         {
-            // test data
-            ratingsList = new List<Pokemon>();
-            ratingsList.Add(new Pokemon("Bulbasaur", 1));
-            ratingsList.Add(new Pokemon("Ivysaur", 2));
-            ratingsList.Add(new Pokemon("Venasaur", 3));
-            ratingsList.Add(new Pokemon("Charmander", 4));
-            ratingsList.Add(new Pokemon("Charmeleon", 5));
-            ratingsList.Add(new Pokemon("Charizard", 6));
-            ratingsList.Add(new Pokemon("Squirtle", 7));
-            ratingsList.Add(new Pokemon("Wartortle", 8));
-            ratingsList.Add(new Pokemon("Blastoise", 9));
+            _pDbo = new PokemonDbo();
         }
 
         public void PlayGame(Pokemon[] selection, Pokemon winner)
@@ -38,7 +27,7 @@ namespace PokeRater
             }
             else
             {
-                throw new WinnerNotValidException(string.Format("{0} did not participate in the game so is invalid.", winner.name));
+                throw new WinnerNotValidException(string.Format("{0} did not participate in the game so is invalid.", winner.Name));
             }
 
             SaveRatings(selection);
@@ -46,19 +35,17 @@ namespace PokeRater
 
         public Pokemon[] GetNewSelection()
         {
-            int a, b;
-            Random rand = new Random();
-            a = rand.Next(ratingsList.Count);
-            b = a;
-            while (b == a) b = rand.Next(ratingsList.Count);
-            return new Pokemon[2] { ratingsList[a], ratingsList[b] };
+            Pokemon pokeA = _pDbo.GetRandomPokemon();
+            Pokemon pokeB = _pDbo.GetRandomPokemon(pokeA);
+
+            return new Pokemon[2] { pokeA, pokeB };
         }
 
         private void SaveRatings(Pokemon[] modifiedSelection)
         {
             foreach (Pokemon p in modifiedSelection)
             {
-                ratingsList[p.dexNum - 1] = p;
+                _pDbo.ChangePokemonRating(p, p.Rating);
             }
         }
     }
