@@ -5,11 +5,11 @@ using PokeRater.Adapters;
 
 namespace PokeRater.DatabaseObjects
 {
-    class PokemonDbo
+    class PokemonDbo : IPokemonDbo
     {
         private Random _rand;
         private string _connectionString = "";
-        private PokeRaterSqlAdapter _prAdapter;
+        private IPokeRaterAdapter _prAdapter;
         private DataTable _pokemon;
 
         public PokemonDbo()
