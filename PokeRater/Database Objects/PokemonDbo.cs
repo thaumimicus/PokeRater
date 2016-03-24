@@ -1,28 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using PokeRater.Adapters;
 
 namespace PokeRater.DatabaseObjects
 {
     class PokemonDbo
     {
-        private List<Pokemon> _ratingsList;
         private Random _rand;
+        private string _connectionString = "";
+        private PokeRaterSqlAdapter _prAdapter;
+        private DataTable _pokemon;
 
         public PokemonDbo()
         {
-            _ratingsList = new List<Pokemon>();
-            _ratingsList.Add(new Pokemon("Bulbasaur", 1));
-            _ratingsList.Add(new Pokemon("Ivysaur", 2));
-            _ratingsList.Add(new Pokemon("Venasaur", 3));
-            _ratingsList.Add(new Pokemon("Charmander", 4));
-            _ratingsList.Add(new Pokemon("Charmeleon", 5));
-            _ratingsList.Add(new Pokemon("Charizard", 6));
-            _ratingsList.Add(new Pokemon("Squirtle", 7));
-            _ratingsList.Add(new Pokemon("Wartortle", 8));
-            _ratingsList.Add(new Pokemon("Blastoise", 9));
-
             _rand = new Random();
+            _prAdapter = new PokeRaterSqlAdapter(_connectionString);
+            _pokemon = _prAdapter.GetAllPokemon();
         }
 
         /// <summary>
@@ -32,8 +26,8 @@ namespace PokeRater.DatabaseObjects
         /// <returns>Pokemon.</returns>
         public Pokemon GetPokemonBy(int dexNum)
         {
-            Pokemon row = _ratingsList.AsEnumerable().Where(x => x.DexNum == dexNum).FirstOrDefault();
-            return row;
+            DataRow row = _pokemon.AsEnumerable().Where(x => (int)x["DexNum"] == dexNum).FirstOrDefault();
+            return new Pokemon(row);
         }
 
         /// <summary>
@@ -43,8 +37,8 @@ namespace PokeRater.DatabaseObjects
         /// <returns>Pokemon.</returns>
         public Pokemon GetPokemonBy(string name)
         {
-            Pokemon row = _ratingsList.AsEnumerable().Where(x => x.Name == name).FirstOrDefault();
-            return row;
+            DataRow row = _pokemon.AsEnumerable().Where(x => (string)x["Name"] == name).FirstOrDefault();
+            return new Pokemon(row);
         }
 
         /// <summary>
@@ -53,8 +47,8 @@ namespace PokeRater.DatabaseObjects
         /// <returns>A random Pokemon.</returns>
         public Pokemon GetRandomPokemon()
         {
-            int a = _rand.Next(0, _ratingsList.Count - 1);
-            return _ratingsList[a];
+            int a = _rand.Next(_pokemon.Rows.Count);
+            return GetPokemonBy(a);
         }
 
         /// <summary>
@@ -64,13 +58,12 @@ namespace PokeRater.DatabaseObjects
         /// <returns>A random Pokemon.</returns>
         public Pokemon GetRandomPokemon(Pokemon ignoreThis)
         {
-            int iIgnore = _ratingsList.IndexOf(ignoreThis);
-            int a = iIgnore;
-            while (a != iIgnore)
+            int a = ignoreThis.DexNum;
+            while (a != ignoreThis.DexNum)
             {
-                a = _rand.Next(0, _ratingsList.Count - 1);
+                a = _rand.Next(_pokemon.Rows.Count);
             }
-            return _ratingsList[a];
+            return GetPokemonBy(a);
         }
 
         /// <summary>
@@ -80,8 +73,9 @@ namespace PokeRater.DatabaseObjects
         /// <param name="newRating"></param>
         public void ChangePokemonRating(Pokemon pokemon, int newRating)
         {
-            Pokemon row = _ratingsList.AsEnumerable().Where(x => x.DexNum == pokemon.DexNum).FirstOrDefault();
-            row.ChangeRating(newRating);
+            DataRow row = _pokemon.AsEnumerable().Where(x => (int)x["DexNum"] == pokemon.DexNum).FirstOrDefault();
+            row["Rating"] = newRating;
+            _prAdapter.UpdatePokemon(_pokemon);
         }
     }
 }
