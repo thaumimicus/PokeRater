@@ -6,7 +6,7 @@ namespace PokeRater
 {
     public class DualEloPlayer : IGamePlayer
     {
-        private PokemonDbo _pDbo;
+        private IPokemonDbo _pDbo;
 
         public DualEloPlayer()
         {
