@@ -1,7 +1,7 @@
-﻿using PokeRater;
+﻿using PokeRaterUI;
 using System.Windows;
 
-namespace PokeRaterUI
+namespace PokeRaterTest
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -11,7 +11,7 @@ namespace PokeRaterUI
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            var window = new MainWindow (new RaterViewModel(new DualEloPlayer()));
+            var window = new MainWindow(new RaterViewModel(new DualEloPlayerTest()));
             window.Show();
         }
     }

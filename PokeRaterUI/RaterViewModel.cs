@@ -28,7 +28,7 @@ namespace PokeRaterUI
 
         private void UpdateSelection()
         {
-            CurrentSelection = player.GetNewSelection().Select(p => new PokemonSprite(p, new BitmapImage(new Uri("pack://application:,,,/PokemonPixelSprites/" + p.DexNum + ".png")))).ToList();
+            CurrentSelection = player.GetNewSelection().Select(p => new PokemonSprite(p, new BitmapImage(new Uri("pack://application:,,,/PokeRaterUI;component/PokemonPixelSprites/" + p.DexNum + ".png")))).ToList();
         }
 
         private ICommand _choosePokemonCommand;
