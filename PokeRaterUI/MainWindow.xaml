@@ -6,28 +6,51 @@
         xmlns:local="clr-namespace:PokeRaterUI"
         mc:Ignorable="d"
         Title="PokeRater" Height="350" Width="525">
-    <Window.DataContext>
-        <local:RaterViewModel />
-    </Window.DataContext>
-    <Grid>
+    <Grid VerticalAlignment="Center">
         <StackPanel>
-            <ListView x:Name="List" ItemsSource="{Binding CurrentSelection, Mode=OneWay}">
-                <ListView.ItemTemplate>
+            <ListBox x:Name="List" ItemsSource="{Binding CurrentSelection, Mode=OneWay}" HorizontalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" BorderBrush="{x:Null}">
+                <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal" >
-                            <TextBlock Text="Name: " VerticalAlignment="Center" />
-                            <TextBlock Text="{Binding name}" FontWeight="Bold" VerticalAlignment="Center" />
-                            <TextBlock Text=", " VerticalAlignment="Center" />
-                            <TextBlock Text="Dex Number: " VerticalAlignment="Center" />
-                            <TextBlock Text="{Binding dexNum}" FontWeight="Bold" VerticalAlignment="Center" />
-                            <TextBlock Text=", " VerticalAlignment="Center" />
-                            <TextBlock Text="Current Rating: " VerticalAlignment="Center" />
-                            <TextBlock Text="{Binding rating}" FontWeight="Bold" VerticalAlignment="Center" />
-                            <Button Command="{Binding DataContext.ChoosePokemonCommand, ElementName=List}" CommandParameter="{Binding }" Content="Choose" Margin="5,5,0,5" VerticalAlignment="Center"></Button>
-                        </StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid VerticalAlignment="Center" Grid.Column="0">
+                                <Viewbox>
+                                    <Image Source="{Binding Image}" Width="96" Height="96" Margin="5,5,5,5" RenderOptions.BitmapScalingMode="NearestNeighbor"></Image>
+                                </Viewbox>
+                            </Grid>
+                            <StackPanel Orientation="Vertical" Grid.Column="1" Margin="0,5,0,5" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Name: " VerticalAlignment="Center" />
+                                    <TextBlock Text="{Binding Poke.Name}" FontWeight="Bold" VerticalAlignment="Center" />
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Dex Number: " VerticalAlignment="Center" />
+                                    <TextBlock Text="{Binding Poke.DexNum}" FontWeight="Bold" VerticalAlignment="Center" />
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Current Rating: " VerticalAlignment="Center" />
+                                    <TextBlock Text="{Binding Poke.Rating}" FontWeight="Bold" VerticalAlignment="Center" />
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Games Played: " VerticalAlignment="Center" />
+                                    <TextBlock Text="{Binding Poke.GamesPlayed}" FontWeight="Bold" VerticalAlignment="Center" />
+                                </StackPanel>
+                                
+                            </StackPanel>
+
+                            <Button Grid.Column="2" Command="{Binding DataContext.ChoosePokemonCommand, ElementName=List}" CommandParameter="{Binding }" Content="Choose" Margin="10,5,10,5" VerticalAlignment="Center"></Button>
+                        </Grid>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </StackPanel>
     </Grid>
 </Window>
