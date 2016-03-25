@@ -48,6 +48,7 @@
     <Compile Include="Exceptions\WinnerNotValidException.cs" />
     <Compile Include="DualEloPlayer.cs" />
     <Compile Include="IGamePlayer.cs" />
+    <Compile Include="Database Objects\IPokemonDbo.cs" />
     <Compile Include="Pokemon.cs" />
     <Compile Include="Database Objects\PokemonDbo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

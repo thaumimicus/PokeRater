@@ -9,10 +9,10 @@ namespace PokeRaterUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(RaterViewModel model)
         {
             InitializeComponent();
-            DataContext = new RaterViewModel(new DualEloPlayer());
+            DataContext = model;
         }
     }
 }
