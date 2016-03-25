@@ -55,6 +55,13 @@ namespace PokeRater
             _gamesPlayed = (int)row["GamesPlayed"];
         }
 
+        public Pokemon(string name, int dexnum)
+        {
+            _name = name;
+            _dexNum = dexnum;
+            _rating = 2000;
+        }
+
         public void ChangeRating(int newRating)
         {
             _rating = newRating;
